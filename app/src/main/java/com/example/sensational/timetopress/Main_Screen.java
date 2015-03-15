@@ -1,5 +1,6 @@
 package com.example.sensational.timetopress;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -18,6 +19,7 @@ public class Main_Screen extends ActionBarActivity {
     int best_Score;
     int lastScore;
     public static final String PREFS = "SHARED_PREFS";
+    TextView best_score_number_tv;
 
 
     @Override
@@ -30,7 +32,7 @@ public class Main_Screen extends ActionBarActivity {
         TextView main_screen_titleone = (TextView) findViewById(R.id.main_screen_titleone);
         TextView main_screen_titletwo = (TextView) findViewById(R.id.main_screen_titletwo);
         TextView best_score_tv = (TextView) findViewById(R.id.best_score_tv);
-        TextView best_score_number_tv = (TextView) findViewById(R.id.best_score_number_tv);
+        best_score_number_tv = (TextView) findViewById(R.id.best_score_number_tv);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/LemonMilk.otf");
         main_screen_titleone.setTypeface(myCustomFont);
         main_screen_titletwo.setTypeface(myCustomFont);
@@ -44,27 +46,31 @@ public class Main_Screen extends ActionBarActivity {
 
         SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
         best_Score = prefs.getInt("BEST_SCORE", 0); //0 is the default value.
-        
-        if (getIntent() != null && extras != null){
-            lastScore = extras.getInt("lastScore");
 
-            if (lastScore > best_Score) {
-                best_score_number_tv.setText(lastScore + "");
-            } else {
-                best_score_number_tv.setText(best_Score + "");
-            }
-        }
-
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit();
-        editor.putInt("BEST_SCORE", best_Score);
-        editor.commit();
+        best_score_number_tv.setText(String.valueOf(best_Score));
 
     }
 
 
     public void startTheGame(View view) {
         Intent intent = new Intent(this, press_screen.class);
-        startActivity(intent);
+        startActivityForResult(intent, 10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode== Activity.RESULT_OK){
+            lastScore = data.getIntExtra("lastScore", 0);
+            if (lastScore > best_Score) {
+                best_Score = lastScore;
+                best_score_number_tv.setText(String.valueOf(lastScore));
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit();
+                editor.putInt("BEST_SCORE", best_Score);
+                editor.commit();
+            } else {
+                best_score_number_tv.setText(String.valueOf(best_Score));
+            }
+        }
     }
 
     @Override

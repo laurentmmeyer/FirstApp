@@ -61,9 +61,10 @@ public class press_screen extends ActionBarActivity {
         @Override
         public void onFinish() {
 
-            Intent goBackToMainActivity = new Intent(press_screen.this, Main_Screen.class);
-            goBackToMainActivity.putExtra("lastScore", amountOfTapsNumber);
-            startActivity(goBackToMainActivity);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("lastScore",amountOfTapsNumber);
+            setResult(RESULT_OK,returnIntent);
+            finish();
 
         }
     };
