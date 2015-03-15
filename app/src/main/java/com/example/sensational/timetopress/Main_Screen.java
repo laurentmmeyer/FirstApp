@@ -43,8 +43,8 @@ public class Main_Screen extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
 
         SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
-        int best_score = prefs.getInt("BEST_SCORE", 0); //0 is the default value.
-
+        best_Score = prefs.getInt("BEST_SCORE", 0); //0 is the default value.
+        
         if (getIntent() != null && extras != null){
             lastScore = extras.getInt("lastScore");
 
