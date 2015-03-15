@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Time To Press</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_press_screen">press_screen</string>
+    <string name="button">button</string>
+    <string name="amount_of_taps">0</string>
+    <string name="time_left_tv">Time Left:</string>
+    <string name="time_left_number_tv">21</string>
+    <string name="time_to_press">Time To Press</string>
+    <string name="tap_me">tap_me</string>
+    <string name="press_tv">Press</string>
+    <string name="time_to_tv">Time To</string>
+    <string name="best_score">Best Score</string>
+    <string name="best_score_number">0</string>
+</resources>
